@@ -60,23 +60,20 @@
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Analytics</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Analytics</a></li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='fas fa-credit-card' ></i>
+            <span class="link_name">Cards
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="/creatcards">Creat Cards</a></li>
+          <li><a href="/cards">My Cards</a></li>
+          
         </ul>
       </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
-        </ul>
-      </li>
+     
       <li>
         <div class="iocn-link">
           <a href="#">
@@ -110,28 +107,10 @@
       <li>
         <a href="/finances">
           <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
+          <span class="link_name">Finance</span>
         </a>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Explore</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
         </ul>
       </li>
       <li>
@@ -167,6 +146,9 @@
   sidebarBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("close");
   });
+
+
+
   </script>
 </body>
 </html>
@@ -193,12 +175,14 @@
 .sidebar.close{
   width: 78px;
   display: none;
+  
 }
 .sidebar .logo-details{
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
+  
 }
 .sidebar .logo-details i{
   font-size: 30px;
@@ -214,6 +198,7 @@
   font-weight: 600;
   transition: 0.3s ease;
   transition-delay: 0.1s;
+  
 }
 .sidebar.close .logo-details .logo_name{
   transition-delay: 0s;
@@ -392,7 +377,7 @@
   top: 0%;
 }
 .sidebar.close ~ .home-section{
-  left: 78px;
+  left: 24px;
   
 }
 .home-section .home-content{
@@ -412,26 +397,6 @@
 .home-section .home-content .text{
   font-size: 26px;
   font-weight: 600;
-}
-@media (max-width: 400px) {
-  .sidebar.close .nav-links li .sub-menu{
-    display: none;
-  }
-  .sidebar{
-    width: 78px;
-  }
-  .sidebar.close{
-    width: 0;
-  }
-  .home-section{
-    left: 78px;
-    width: calc(100% - 78px);
-    z-index: 100;
-  }
-  .sidebar.close ~ .home-section{
-    width: 100%;
-    left: 0;
-  }
 }
 
 .notification {
@@ -453,5 +418,86 @@
 .notification i {
   margin: 0 auto; /* Santi pou ikòn an chita nan mitan div la */
 }
+@media (max-width: 393px) and (max-width: 393px) {
+  .sidebar {
+    width: 100%;
+    background: #b6e7b7;
+  }
 
+  .sidebar.close {
+    display: none;
+  }
+
+  .sidebar .logo-details .logo_name {
+    opacity: 0;
+  }
+
+  .sidebar .logo-details i {
+    font-size: 20px;
+  }
+
+  .sidebar .nav-links {
+    padding: 20px 0;
+  }
+
+  .sidebar .nav-links li {
+    padding: 5px 0;
+  }
+
+  .sidebar .nav-links li .iocn-link {
+    justify-content: flex-start;
+  }
+
+  .sidebar .nav-links li i {
+    height: 40px;
+    min-width: 40px;
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+  .sidebar .nav-links li a .link_name {
+    opacity: 1;
+  }
+
+  .sidebar .nav-links li .sub-menu {
+    padding: 6px 6px 14px 16px;
+  }
+
+  .sidebar .nav-links li .sub-menu a {
+    font-size: 14px;
+  }
+
+  .sidebar .profile-details {
+    width: 100%;
+  }
+
+  .sidebar .profile-details img {
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+  }
+
+  .sidebar .profile-details .profile_name,
+  .sidebar .profile-details .job {
+    font-size: 14px;
+  }
+
+  .sidebar .profile-details i {
+    display: none;
+  }
+
+ 
+  .home-section{
+
+    width: calc(100% - 78px);
+    z-index: 100;
+    left: 0;
+    width: 100%;
+  }
+  
+}
+
+.home-section i{
+  background: red;
+}
 </style>

@@ -14,6 +14,7 @@ class CreateSubscriptionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('subscription_type');
             $table->string('status')->default('pending');
+            $table->decimal('amount', 10, 2); // Nou ajoute kolòn pou pri abònman an
             $table->timestamps();
         });
     }

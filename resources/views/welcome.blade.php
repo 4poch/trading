@@ -129,7 +129,7 @@
   .crypto-section {
             width: 100%;
             margin: 50px auto;
-            background-color: #fff;
+            background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -152,12 +152,26 @@
             float: right;
             margin-top: 20px; /* Ou ajoute margin-top la pou bay yon ti espas anwo imaj la */
             margin-left: 20px;
-            margin-top: -20%;
+            margin-top: -15%;
             border-radius: 8px;
-            box-shadow: 0 0 50px var(--color5);
+            -webkit-animation: spin 2s linear infinite; /* Anmiasyon nan imaj la */
+
             width: 30%;
             border-left-color: 1px solid #026308;
         }
+
+        @-webkit-keyframes spin {
+  0% {
+    -webkit-transform: scale(1); /* Imaj la pa deplase, li pa vire */
+  }
+  50% {
+    -webkit-transform: scale(1.2); /* Imaj la grossi a 120% nan mitan animasyon an */
+  }
+  100% {
+    -webkit-transform: scale(1); /* Imaj la retounen a gwosè orijinal li nan fen anmasyon an */
+  }
+}
+
 
         .clear {
             clear: both;
@@ -201,6 +215,105 @@ span {
     text-transform: uppercase; /* Fè tout lèt yo an majiskil */
     letter-spacing: 2px; /* Espas ant let yo */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Efè omb ak opasite */
+}
+/* Style pou seksyon boutik */
+.store {
+  text-align: center;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.store img {
+  width: 150px; /* Chwazi yon lòt dimansyon si w bezwen */
+  height: auto; /* Kalkile altè sa otomatikman */
+  margin: 10px;
+}
+
+.store p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Kòmanse divizyon an nan 2 kolòn */
+.store div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Style pou divizyon 2 nan divizyon boutik la */
+.store div:nth-child(2) {
+  margin-bottom: 20px;
+}
+/* Style pou section "store" */
+.tex {
+  text-align: center;
+}
+
+.tex p {
+  font-size: 24px;
+  position: relative;
+  display: inline-block;
+  color: #333;
+}
+
+.tex p:before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 0;
+  color: #52cd89;
+  transition: width 0.5s;
+  white-space: nowrap;
+}
+
+.tex p:hover:before {
+  width: 100%;
+}
+/* CSS pou netflix-container */
+.netflix-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+}
+
+/* CSS pou netflix-content */
+.netflix-content {
+    text-align: center;
+}
+
+/* CSS pou tit ak paragraf */
+h1, p {
+    margin: 0;
+}
+
+/* CSS pou youtube-video */
+.youtube-video {
+    width: 100%;
+    max-width: 800px; /* Ou ka chanje tèt ou */
+}
+
+.youtube-video iframe {
+    width: 100%; /* Rann iframe a chaje sou lajè tout pati a ki kontni li */
+    height: 315px; /* Wotè predefini pou videyo */
+    border: none; /* Retire bordi iframe a */
+}
+
+/* CSS pou netflix-logo */
+.netflix-logo {
+    margin-top: 20px;
+}
+
+/* CSS pou Image Logo */
+.netflix-logo img {
+    width: 150px; /* Lajè imaj la */
+    height: auto; /* Wotè imaj la ajiste otomatikman selon propòsyon yo */
 }
 
 </style>
@@ -291,9 +404,43 @@ span {
 <div class="crypto-section">
   <h2 class="crypto-title">Start Your <span>Trading</span> Journey</h2>
   <p class="crypto-paragraph">Discover million-dollar sellers  <br> securely with just a few clicks,  <br> whether you're buying or <br> selling cryptocurrency.<br></p>
-  <img src="img/cbb.png" alt="Coinbase Image" class="crypto-image">
+  <img src="img/mcard.png" alt="Coinbase Image" class="crypto-image">
   <a href="{{ route('register') }}" class="crypto-button">Créer un compte</a>
   <div class="clear"></div> <!-- Ajoute yon div "clear" apre div yo -->
+</div>
+
+<section class=" store">
+  <div>
+    <img src="img/logos.png" alt="Shein Logo">
+    <img src="img/logoam.png" alt="Amazon Logo">
+    <img src="img/logoa.png" alt="Alibaba Logo">
+</div>
+
+<!-- Dive 2: Paragraf -->
+<div class="tex">
+  <p data-text="We pay for you">We pay for you ,</p>
+  <p data-text=" send your url and add your details <br> we buy it for yoy"> send your url and add your details <br> we buy it for you</p>
+</div>
+
+<!-- Dive 3: Images -->
+<div>
+    <img src="img/curve1.webp" alt="Produit 1">
+    <img src="img/curv2.webp" alt="Produit 2">
+</div>
+</section>
+
+<div class="netflix-container">
+  <div class="netflix-content">
+      <h1>Netflix</h1>
+      <p>Sharing Enjoy All Latest Series for Lest</p>
+      <div class="youtube-video">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/DOOxUy-68X0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      
+  </div>
+  <div class="netflix-logo">
+      <img src="img/logo1.png" alt="Netflix Logo">
+  </div>
 </div>
 
 <script>

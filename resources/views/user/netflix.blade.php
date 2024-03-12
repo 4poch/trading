@@ -24,6 +24,7 @@
 
 .nflix {
     text-align: center;
+    background: #3ed516;
 }
 
 form {
@@ -132,12 +133,6 @@ form {
 
 </style>
 
-
-
-
-
-
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -149,14 +144,16 @@ form {
         @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
-
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
         </div>
-    @endif
+        @endif
+    
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+    </div>
+    
     </div>
     <div class="nflix">
         <form method="POST" action="{{ route('subscription.submit') }}">
@@ -169,12 +166,37 @@ form {
                     <option value="Premium"  class="opc">Plan 2 - Premium 2 Mwa (700 HTG)</option>
                     <option value="Vip"  class="opc">Plan 3 - VIP 3 Mwa (1000 HTG)</option>
                 </select>
+                <!-- Afiche pri a tou -->
+                <p class="subscription-amount">Prix: <span id="subscription-amount-value">400 HTG</span></p>
             </div>
             <button type="submit" class="btt" id="xbd">Subscribe</button>
         </form>
     </div>
-    
 
 </div>
     @include('layouts.usermenu')
 </x-app-layout>
+
+<script>
+    // Ajoute yon evenman lè itilizatè chwazi yon abònman
+    document.getElementById('subscription').addEventListener('change', function() {
+        // Jwenn pri a pou abònman an
+        var subscriptionAmount = getSubscriptionAmount(this.value);
+        // Mete pri a nan tèks la
+        document.getElementById('subscription-amount-value').textContent = subscriptionAmount + ' HTG';
+    });
+
+    // Fonksyon pou jwenn pri abònman an
+    function getSubscriptionAmount(subscriptionType) {
+        switch (subscriptionType) {
+            case 'Gold':
+                return 400;
+            case 'Premium':
+                return 700;
+            case 'Vip':
+                return 1000;
+            default:
+                return 0; // Ou ka mete yon valè default si nesesè
+        }
+    }
+</script>

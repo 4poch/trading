@@ -15,7 +15,9 @@ use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\DepositRequestController;
 use App\Http\Controllers\NotificationController;
-
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\CurrencyConversionController;
+use App\Http\Controllers\EmailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,8 +84,16 @@ Route::get('/offers', function () {
 
 Route::get('/creatoffers', function () {
     return view('user.creatoffers');
-})->middleware(['auth', 'verified'])->name('creatoffers');
+})->middleware(['auth', 'verified'])->name('creatoffers'); 
 
+Route::get('/cards', function () {
+    return view('user.cards');
+})->middleware(['auth', 'verified'])->name('cards');
+
+
+Route::get('/creatcards', function () {
+    return view('user.creatcards');
+})->middleware(['auth', 'verified'])->name('creatcards');
 
 Route::get('/showNotifications', function () {
     return view('user.showNotifications');
@@ -192,6 +202,25 @@ Route::get('/adminnotifications', function () {
 
 
 
+Route::get('/cardoders', function () {
+    if (Auth::check() && Auth::user()->is_admin == 1) {
+        return view('admin.cardoders');
+    } else {
+        return redirect(RouteServiceProvider::HOME);
+    }
+})->middleware(['auth', 'verified'])->name('admin.cardoders'); 
+
+Route::get('/sendmail', function () {
+    if (Auth::check() && Auth::user()->is_admin == 1) {
+        return view('admin.sendmail');
+    } else {
+        return redirect(RouteServiceProvider::HOME);
+    }
+})->middleware(['auth', 'verified'])->name('admin.cardoders')->middleware('admin'); 
+
+
+
+
 
 
 Route::put('/subscription/update/{subscription}', [SubscriptionController::class, 'update'])->name('subscription.update');
@@ -251,14 +280,26 @@ Route::post('/withdrawals', [WithdrawalController::class, 'store'])->name('withd
 
 // routes/web.php
 
+Route::post('/create-moncash-payment', [DepositController::class, 'createMonCashPayment'])->name('create.moncash.payment');
 
 
 Route::get('/finances', [BalanceController::class, 'show'])->name('finances');
+
+Route::get('/dashboard', [BalanceController::class, 'main'])->name('dashboard');
+
 
 
 // Route::get('/depositrequest', [DepositRequestController::class, 'depositRequests']);
 Route::get('/depositrequest', [DepositRequestController::class, 'depositRequests'])->middleware('admin');
 
+Route::get('/cardoders', [CardController::class, 'index'])->middleware('admin');
+Route::post('/update-card', [CardController::class, 'update'])->name('update-card');
+Route::get('/cards',[CardController::class, 'showAllCards'])->name('cards');
+
+Route::post('/send-email', [EmailController::class, 'send'])->name('send.email');
+
+
+Route::post('/save-conversion', [CurrencyConversionController::class, 'store'])->name('save-conversion');
 
 
 Route::post('/admin/deposit/complete', [DepositRequestController::class, 'completeDeposit'])->name('admin.completeDeposit');
@@ -271,10 +312,16 @@ Route::get('/withdrawrequest', [WithdrawalController::class, 'index'])->middlewa
 
 Route::put('/withdrawals/{id}/update-status', [WithdrawalController::class, 'updateStatus'])->name('withdrawals.update-status');
 
-// Route::middleware('auth')->get('/finances', [WithdrawalController::class, 'userWithdrawals'])->name('user.withdrawals');
-// Route::middleware('auth')->get('/finances', [DepositController::class, 'userDeposits'])->name('user.deposits');
+
 
 Route::middleware('auth')->get('/finances', [WithdrawalController::class, 'userFinances'])->name('user.finances');
+
+
+Route::post('/store-card', [CardController::class, 'store'])->name('store-card');
+
+Route::get('/deposits/success', function () {
+    return view('user.depositsuccess'); // Ou dwe itilize "user.depositsuccess" pou fè Laravel ka jwenn paj la nan dosye ki kòrèk la
+})->name('deposits.success');
 
 
 require __DIR__.'/auth.php';

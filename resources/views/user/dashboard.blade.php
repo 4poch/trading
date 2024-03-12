@@ -5,7 +5,31 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+        
+    <section class="money">
+        <div class="balance square">
+            <div class="cardbox1">
+                <div class="htgf">
+                    <img src="img/htg.png" alt="HTG Flag" class="flag-icon"> <!-- Flag icon -->
+                    <p class="amount">HTG Balance:</p>
+                </div>
+                <div class="balance-text">
+                    <p class="bott">{{ $balance->htg_balance ?? 0.00 }} G</p>
+                </div>
+            </div>
+        </div>
+        <div class="balance rounded">
+            <div class="cardbox1">
+                <div class="usdf">
+                    <img src="img/usa.png" alt="USD Flag" class="flag-icon"> <!-- Flag icon -->
+                    <p class="amount">USD Balance:</p>
+                </div>
+                <div class="balance-text">
+                    <p class="bott">{{ $balance->usd_balance ?? 0.00 }} $</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="user-offer">
         <h1>voici votre liste d'offres que vous avez créée</h1>
 
@@ -97,6 +121,8 @@
 </script>
 
 <style>
+   
+
     /* Base styles */
     :root {
   --color1:#b6e7b7; 
@@ -220,6 +246,68 @@ button:hover {
     .offer-wrapper {
         width: 100%;
     }
+}
+/* Default styles for larger screens */
+.money {
+    display: flex;
+    
+}
+
+.balance {
+    width: 250px;
+    height: 250px;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.flag-icon {
+    width: 50px;
+    height: 50px;
+    margin-left: -40%;
+    border-radius: 50%;
+}
+
+.cardbox1 {
+    display: flex;
+    flex-direction: column; /* Adjust to a column layout */
+    align-items: center;
+    background: #fff;
+    height: 100%;
+}
+
+.amount {
+    font-size: 20px;
+    margin-top: -30px;
+    font-weight: bold;
+}
+
+.balance-text {
+    margin: 10px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+/* Additional styling for USD balance */
+.balance.rounded {
+    background-color: #fcfcfc;
+    border-radius: 12px;
+}
+
+/* Additional styling for USD flag icon */
+.balance.rounded .flag-icon {
+    /* Add specific styles for the rounded balance */
+}
+
+.bott {
+    margin-top: 110px;
+    margin-left: -100px;
+    font-size: 20px;
 }
 
 </style>

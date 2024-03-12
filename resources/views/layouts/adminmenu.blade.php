@@ -62,12 +62,12 @@
         </ul>
       </li>
       <li>
-        <a href="#">
+        <a href="/cardoders">
           <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
+          <span class="link_name">Cardoders</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
+          <li><a class="link_name" href="/cardoders">Chart</a></li>
         </ul>
       </li>
       <li>

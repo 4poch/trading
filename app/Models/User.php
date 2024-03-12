@@ -46,6 +46,7 @@ class User extends Authenticatable
     public function netflixData()
 {
     return $this->hasMany(NetflixData::class);
+    
 }
 
 }

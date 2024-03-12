@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Balance;
+
 class SubscriptionController extends Controller
 {
     // Metòd la pou afiche fòm abònman
@@ -14,7 +16,6 @@ class SubscriptionController extends Controller
         return view('subscription.form');
     }
 
-    // Metòd la pou resevwa ak tretman fòm soumi
     public function submitSubscription(Request $request)
     {
         // Verifye si itilizatè a se sezon an
@@ -23,24 +24,43 @@ class SubscriptionController extends Controller
             $request->validate([
                 'subscription' => 'required|in:Gold,Premium,Vip',
             ]);
-
-            // Si validate a pase, fè operasyon abònman ou yo isit la
-            $subscription = new Subscription();
-            $subscription->user_id = Auth::user()->id; // ID de l'utilisateur actuel
-            $subscription->subscription_type = $request->subscription;
-            $subscription->save();
-
-            // Jwenn non itilizatè a nan abònman a
-            $userName = Auth::user()->name;
-
-            // Retounen menm paj la ak yon mesaj pou konfime abònman an ak non itilizatè a
-            return back()->with('success', 'Abònman an fèt avèk siksè. Itilizatè: ' . $userName);
+    
+            // Kalkile pri a pou abònman an
+            $amount = $this->getSubscriptionAmount($request->subscription);
+    
+            // Jwenn balans itilizatè a
+            $user = Auth::user();
+            $balance = Balance::where('user_id', $user->id)->first();
+    
+            // Verifye si balans itilizatè a ase pou retire montan abònman an
+            if ($balance && $balance->htg_balance >= $amount) {
+                // retire montan abònman an soti nan balans itilizatè a
+                $balance->htg_balance -= $amount;
+                $balance->save();
+    
+                // fè operasyon abònman ou yo isit la
+                $subscription = new Subscription();
+                $subscription->user_id = $user->id;
+                $subscription->subscription_type = $request->subscription;
+                $subscription->amount = $amount;
+                $subscription->save();
+    
+                // Jwenn non itilizatè a
+                $userName = $user->name;
+    
+                // Retounen menm paj la ak yon mesaj pou konfime abònman an ak non itilizatè a
+                return back()->with('success', 'Abònman an fèt avèk siksè. Itilizatè: ' . $userName);
+            } else {
+                // Si balans la pa ase, afiche yon mesaj ere
+                $errorMessage = 'Balans ou pa ase pou fè abònman sa a.';
+                return back()->with('error', $errorMessage);
+            }
         } else {
             // Si itilizatè a pa se sezon an, retounen li nan paj ki gen fòm nan ak yon mesaj erè.
             return back()->with('error', 'Ou pa otorize aksede nan fòm lan.');
         }
     }
-
+    
     // pou afiche subscribtion yo nan admin nan
     public function index()
     {
@@ -81,6 +101,20 @@ public function indexx()
 
 
 
+    // Fonksyon pou jwenn kantite abònman an
+    private function getSubscriptionAmount($subscriptionType)
+    {
+        switch ($subscriptionType) {
+            case 'Gold':
+                return 400;
+            case 'Premium':
+                return 700;
+            case 'Vip':
+                return 1000;
+            default:
+                return 0;
+        }
+    }
     
 
 }

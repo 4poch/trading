@@ -5,6 +5,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: #0a2cc8;
 }
 :root {
   --color1:#b6e7b7; 
